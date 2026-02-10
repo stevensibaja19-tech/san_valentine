@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Vos ❤️</title>
+  <title>Para Marlin ❤️</title>
   <style>
     body {
       margin: 0;
@@ -24,16 +24,19 @@
       border-radius: 20px;
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      max-width: 400px;
+      max-width: 420px;
       animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      font-size: 2em;
     }
 
     .message {
-      font-size: 1.2em;
+      font-size: 1.15em;
       margin: 10px 0;
       opacity: 0;
       animation: showMessage 1s forwards;
@@ -43,6 +46,8 @@
     .message:nth-child(2) { animation-delay: 2s; }
     .message:nth-child(3) { animation-delay: 3s; }
     .message:nth-child(4) { animation-delay: 4s; }
+    .message:nth-child(5) { animation-delay: 5s; }
+    .message:nth-child(6) { animation-delay: 6s; }
 
     .buttons {
       margin-top: 25px;
@@ -67,6 +72,7 @@
     #no {
       background: #ffffff;
       color: #ff4d6d;
+      position: absolute;
     }
 
     #result {
@@ -74,6 +80,14 @@
       font-size: 1.4em;
       font-weight: bold;
       display: none;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
     }
 
     @keyframes fadeIn {
@@ -84,6 +98,11 @@
     @keyframes showMessage {
       to { opacity: 1; }
     }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -93,19 +112,21 @@
   </audio>
 
   <div class="card">
-    <h1>Para vos ❤️</h1>
+    <h1>Marlin ❤️</h1>
 
     <div class="message">Desde que llegaste a mi vida…</div>
     <div class="message">todo tiene más sentido ✨</div>
     <div class="message">Cada sonrisa tuya es mi lugar favorito 💕</div>
-    <div class="message">Y por eso hoy quiero preguntarte…</div>
+    <div class="message">Este sábado tenemos unas citas geniales</div>
+    <div class="message">que sé que te van a gustar muchísimo 😍</div>
+    <div class="message">Ponte guapa como siempre, mi amor 💖</div>
 
     <div class="buttons">
-      <button id="yes">¿Querés ser mi San Valentín? 💖</button>
+      <button id="yes">¿Querés ser mi San Valentín? 💘</button>
       <button id="no">No 🙈</button>
     </div>
 
-    <div id="result">¡Sabía que ibas a decir que sí! 😍💘</div>
+    <div id="result">¡Sabía que ibas a decir que sí! 😍💞</div>
   </div>
 
   <script>
@@ -113,18 +134,35 @@
     const noBtn = document.getElementById('no');
     const result = document.getElementById('result');
 
-    noBtn.addEventListener('click', () => {
-      const currentSize = window.getComputedStyle(noBtn).fontSize;
-      const newSize = parseFloat(currentSize) * 0.8;
-      noBtn.style.fontSize = newSize + 'px';
-      noBtn.style.padding = '8px 15px';
-    });
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    noBtn.addEventListener('mouseover', moveNoButton);
 
     yesBtn.addEventListener('click', () => {
       result.style.display = 'block';
       yesBtn.style.display = 'none';
       noBtn.style.display = 'none';
     });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 400);
   </script>
 
 </body>
