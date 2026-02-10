@@ -82,7 +82,7 @@
   <source src="https://cdn.pixabay.com/audio/2022/10/03/audio_38b2b6e35f.mp3" type="audio/mpeg">
 </audio>
 
-<h1>Marlin 💕<br>¿Querés ser mi San Valentín?</h1>
+<h1 id="intro"></h1>
 <button id="yes">Sí 💖</button>
 <button id="no">No 🙈</button>
 
@@ -96,6 +96,28 @@
 
 <script>
   const noBtn = document.getElementById('no');
+  const intro = document.getElementById('intro');
+
+  const messages = [
+    "Marlin 💕",
+    "Hay algo que quiero decirte…",
+    "Me hacés muy feliz 💖",
+    "Cada día a tu lado es especial ✨",
+    "Y por eso…"
+  ];
+
+  let index = 0;
+  function showMessages() {
+    if (index < messages.length) {
+      intro.innerHTML = messages[index];
+      index++;
+      setTimeout(showMessages, 1800);
+    } else {
+      intro.innerHTML = "¿Querés ser mi San Valentín? 💘";
+    }
+  }
+
+  showMessages();
   const yesBtn = document.getElementById('yes');
   const finalDiv = document.getElementById('final');
   const music = document.getElementById('music');
